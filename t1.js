@@ -9,3 +9,4 @@ result = (0 == remainder) ? "even" : "odd";
 console.log("This number is ",result);
 // result show done
 //another task started
+//edited 2018-07-02
