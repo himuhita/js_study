@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body ng-app="myApp">
+
+    <w3-test-directive></w3-test-directive>
+    <div w3-test-directive></div>
+    <div class="w3-test-directive"></div>
+<!-- directive: w3-test-directive -->
+<script>
+var app = angular.module("myApp", []);
+app.directive("w3TestDirective", function() {
+    return {
+        template : "<h1>Made by a directive!</h1>"
+    };
+});
+
+app.directive("w3TestDirective", function() {
+    return {
+        template : "<h1>Made by a directive!</h1>"
+    };
+});
+
+app.directive("w3TestDirective", function() {
+    return {
+        restrict : "C",
+        template : "<h1>Made by a directive!</h1>"
+    };
+});
+app.directive("w3TestDirective", function() {
+    return {
+        restrict : "M",
+        replace : true,
+        template : "<h1>Made by a directive!</h1>"
+    };
+});
+
+app.directive("w3TestDirective", function() {
+    return {
+        restrict : "A",
+        template : "<h1>Made by a directive!</h1>"
+    };
+})
+
+</script>
+
+</body>
+</html>
