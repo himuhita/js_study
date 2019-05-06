@@ -1,20 +1,50 @@
 <!DOCTYPE html>
 <html>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
-<style>
-input.ng-invalid {
-    background-color: lightblue;
-}
-</style>
 <body>
 
-<form ng-app="" name="myForm">
-    Enter your name:
-    <input name="myName" ng-model="myText" required>
-</form>
+<div ng-app="myApp">
+<div ng-controller="myCtrl">
+First Name: <input type="text" ng-model="firstName"><br>
+Last Name: <input type="text" ng-model="lastName"><br>
+<br>
+Full Name: {{firstName + " " + lastName}}
+<br>
+Full Name: {{fullName()}}
+<br>
+</div>
 
-<p>Edit the text field and it will get/lose classes according to the status.</p>
-<p><b>Note:</b> A text field with the "required" attribute is not valid when it is empty.</p>
+<div ng-controller="yourCtrl">
+    Age: <input type="text" ng-model="age"><br>
+    Gender: <input type="text" ng-model="gender"><br>
+    <br>
+    Your Gender: {{gender + " and your age: " + age}}
+</div>
+
+<div ng-controller="namesCtrl"> 
+    <ul>
+      <li ng-repeat="x in names">
+        {{ x.name + ', ' + x.country }}
+      </li>
+    </ul>    
+</div>
+
+<p style="color:{{color}};">The rootScope's favorite color:</p>
+<h1 style="color:{{color}};">{{color}}</h1>
+
+<div ng-controller="colorCtrl">
+
+<p style="color:{{color}};">The scope of the controller's favorite color:</p>
+<h1 style="color:{{color}};">{{color}}</h1>
+
+</div>
+
+<p style="color:{{color}};">The rootScope's favorite color is still:</p>
+<h1 style="color:{{color}};">{{color}}</h1>
+
+</div>
+
+<script src="personController.js"></script>
 
 </body>
 </html>
