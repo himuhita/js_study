@@ -14,6 +14,37 @@
 
         <h1>{{myWelcome}}</h1>
     </div>
+
+    <div ng-controller="myCtrl2"> 
+        <p>This header will change after two seconds:</p>        
+        <h1>{{myHeader}}</h1>        
+    </div>
+
+    <div ng-controller="myCtrl3"> 
+        <p>The time is:</p>        
+        <h1>{{theTime}}</h1>        
+    </div>
+
+    <div ng-controller="customCtrl">
+        <p>The hexadecimal value of 255 is:</p>        
+        <h1>{{hex}}</h1>        
+        <p>A custom service with a method that converts a given number into a hexadecimal number.</p>
+    </div>
+
+    <div>
+        Convert the number 255, using a custom made service inside a custom made filter:
+        <input type="number" ng-model="inputnumber"  ng-init="inputnumber=0">
+        <h1>{{ inputnumber | myFormat }}</h1>
+    </div>
+
+    <div ng-controller="myCtrl4">
+        <p>Use a filter when displaying the array [255, 251, 200]:</p>        
+        <ul>
+          <li ng-repeat="x in counts">{{x | myFormat}}</li>
+        </ul>        
+        <p>This filter uses a service that converts numbers into hexadecimal values.</p>
+    </div>
+
 </div>
 
 <script>
@@ -27,6 +58,40 @@ app.controller('myCtrl1', function($scope, $http) {
       $scope.myWelcome = response.data;
   });
 });
+
+app.controller('myCtrl2', function($scope, $timeout) {
+  $scope.myHeader = "Hello World!";
+  $timeout(function () {
+      $scope.myHeader = "How are you today?";
+  }, 5000);
+});
+
+app.controller('myCtrl3', function($scope, $interval) {
+  $scope.theTime = new Date().toLocaleTimeString();
+  $interval(function () {
+      $scope.theTime = new Date().toLocaleTimeString();
+  }, 1000);
+});
+
+app.service('hexafy', function() {
+    this.myFunc = function (x) {
+        return x.toString(16);
+    }
+});
+app.controller('customCtrl', function($scope, hexafy) {
+  $scope.hex = hexafy.myFunc(1010);
+});
+
+app.filter('myFormat',['hexafy', function(hexafy) {
+    return function(x) {
+        return hexafy.myFunc(x); 
+    };
+}]);
+
+app.controller('myCtrl4', function($scope) {
+    $scope.counts = [255, 251, 200];
+});
+
 </script>
 
 </body>
