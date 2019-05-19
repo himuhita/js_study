@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            table, th , td  {
+                border: 1px solid grey;
+                border-collapse: collapse;
+                padding: 5px;
+            }
+            table tr:nth-child(odd) {
+                background-color: #f1f1f1;
+            }
+            table tr:nth-child(even) {
+                background-color: #ffffff;
+            }
+        </style>
+                    
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    </head>
+<body>
+
+<div ng-app="myApp"> 
+    <div ng-controller="customersCtrl">
+        <ul>
+        <li ng-repeat="x in myData">
+            {{ x.Name + ', ' + x.Country }}
+        </li>
+        </ul>
+    </div>
+
+    <div ng-controller="opns">
+            <select ng-model="selectedName" ng-options="y.Name for (x,y) in names">
+            </select>   
+            <h1>Name: {{selectedName.Name}}</h1>
+            <h2>City: {{selectedName.City}}</h2>
+            <h3>Country: {{selectedName.Country}}</h3>
+
+            <p>The visible text inside the dropdown list can also be a property of the value object.</p>
+            
+    </div>
+
+    <div ng-controller="customersCtrlt"> 
+            <table>
+                <tr><th>#</th><th>Name</th><th>City</th><th>Country</th></tr>
+                <tr ng-repeat="x in names | orderBy : 'Country'">
+                    <td>{{ $index + 1 }}</td>
+                    <td>{{ x.Name }}</td>
+                    <td>{{ x.City | uppercase  }}</td>
+                    <td>{{ x.Country | uppercase  }}</td>
+                </tr>
+            </table>            
+    </div>
+
+</div>
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('customersCtrl', function($scope, $http) {
+  $http.get("customers.php").then(function (response) {
+      $scope.myData = response.data.records;
+  });
+});
+
+app.controller('customersCtrlt', function($scope, $http) {
+  $http.get("customers.php").then(function (response) {
+      $scope.names  = response.data.records;
+  });
+});
+
+app.controller('opns', function($scope, $http) {
+  $http.get("customers.php").then(function (response) {
+      $scope.names  = response.data.records;
+  });
+});
+</script>
+
+</body>
+</html>

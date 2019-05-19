@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+<body>
+<div ng-app="myApp">
+
+    <div ng-init="mySwitch=true">
+    <p>
+    <button ng-disabled="mySwitch">Click Me!</button>
+    </p>
+    <p>
+    <input type="checkbox" ng-model="mySwitch"/>Button
+    </p>
+    <p>
+    {{ mySwitch }}
+    </p>
+    </div>
+
+    <div ng-controller="myCtrl">
+        <h1 ng-mousemove="count = count + 1">Mouse Over Me!</h1>        
+        <h2>{{ count }}</h2>        
+    </div>
+
+    <div ng-controller="myCtrl1">
+        <button ng-click="count = count + 1">Click me!</button>       
+        <p>{{ count }}</p>
+    </div>
+
+    <div ng-controller="myCtrl2">
+        <button ng-click="countFunc()">Click me!</button>       
+        <p>{{ count }}</p>
+    </div>
+
+    <div ng-controller="myCtrl3">
+        <button ng-click="myFunc1()">Click Me!</button>        
+        <div ng-show="showMe">
+          <h1>Menu:</h1>
+          <div>Pizza</div>
+          <div>Pasta</div>
+          <div>Pesce</div>
+        </div>        
+    </div>
+
+    <div ng-controller="myCtrl4">
+      <h1 ng-mousemove="myFunc($event)">Mouse Over Me!</h1>
+      
+      <p>Coordinates: {{x + ', ' + y}}</p>
+      <p>Mouse over the heading to display the value of clientX and clientY from the event object.</p>
+    </div>
+
+</div> 
+
+<script>
+var app = angular.module('myApp', []);
+app.controller('myCtrl', function($scope) {
+    $scope.count = 0;
+});
+
+app.controller('myCtrl1', function($scope) {
+  $scope.count = 0;
+});
+
+app.controller('myCtrl2', function($scope) {
+  $scope.count = 0;
+  $scope.countFunc = function() {
+    $scope.count++;
+  }
+});
+
+app.controller('myCtrl3', function($scope) {
+  $scope.showMe = false;
+  $scope.myFunc1 = function() {
+    $scope.showMe = !$scope.showMe;
+  }
+});
+
+app.controller('myCtrl4', function($scope) {
+    $scope.myFunc = function(myE) {
+        $scope.x = myE.clientX;
+        $scope.y = myE.clientY;
+    }
+});
+
+</script> 
+
+
+
+
+</body>
+</html>
